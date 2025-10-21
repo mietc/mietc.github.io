@@ -4,7 +4,7 @@ let touchStartX = 0;
 let touchEndX = 0;
 
 // Handle browser back/forward buttons
-window.addEventListener('popstate', function(event) {
+window.addEventListener("popstate", function (event) {
   if (event.state) {
     navigateToState(event.state);
   } else {
@@ -13,26 +13,34 @@ window.addEventListener('popstate', function(event) {
 });
 
 // Initialize with home state
-window.addEventListener('load', function() {
+window.addEventListener("load", function () {
   if (!window.history.state) {
-    window.history.replaceState({ page: 'home' }, '', '#home');
+    window.history.replaceState({ page: "home" }, "", "#home");
   }
 });
 
 // Mobile swipe gesture detection
-document.addEventListener('touchstart', function(e) {
-  touchStartX = e.changedTouches[0].screenX;
-}, false);
+document.addEventListener(
+  "touchstart",
+  function (e) {
+    touchStartX = e.changedTouches[0].screenX;
+  },
+  false
+);
 
-document.addEventListener('touchend', function(e) {
-  touchEndX = e.changedTouches[0].screenX;
-  handleSwipe();
-}, false);
+document.addEventListener(
+  "touchend",
+  function (e) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  },
+  false
+);
 
 function handleSwipe() {
   const swipeThreshold = 100;
   const swipeDistance = touchEndX - touchStartX;
-  
+
   // Swipe right (back gesture)
   if (swipeDistance > swipeThreshold) {
     window.history.back();
@@ -40,23 +48,23 @@ function handleSwipe() {
 }
 
 function navigateToState(state) {
-  switch(state.page) {
-    case 'home':
+  switch (state.page) {
+    case "home":
       showHomeInternal();
       break;
-    case 'subjects':
+    case "subjects":
       showSubjectsInternal(state.year);
       break;
-    case 'resources':
+    case "resources":
       showResourcesInternal(state.year, state.subject);
       break;
-    case 'howto':
+    case "howto":
       showHowToDownloadInternal();
       break;
-    case 'about':
+    case "about":
       showAboutInternal();
       break;
-    case 'contact':
+    case "contact":
       showContactInternal();
       break;
     default:
@@ -64,40 +72,46 @@ function navigateToState(state) {
   }
 }
 
-const subjects = {
+// Load data from data.json
+let subjectsData = null;
+
+// Define initial subjects structure
+let subjects = {
   1: [
-    "Engineering Mathematics-I",
-    "Engineering Physics",
-    "Engineering Chemistry",
-    "Basic Electrical Engineering",
-    "Programming in C",
-    "Engineering Graphics",
+    "physics",
+    "chemistry",
+    "soft skills",
+    "electrical",
+    "electronics",
+    "evs",
+    "maths sem 1",
+    "maths sem 2",
+    "mechanical",
+    "pps",
   ],
-  2: [
-    "Engineering Mathematics-II",
-    "Data Structures",
-    "Digital Electronics",
-    "Computer Organization",
-    "Object Oriented Programming",
-    "Database Management Systems",
-  ],
-  3: [
-    "Operating Systems",
-    "Computer Networks",
-    "Software Engineering",
-    "Theory of Computation",
-    "Design and Analysis of Algorithms",
-    "Web Technologies",
-  ],
-  4: [
-    "Machine Learning",
-    "Artificial Intelligence",
-    "Cloud Computing",
-    "Information Security",
-    "Mobile Application Development",
-    "Project Work",
-  ],
+  2: [], // Will be populated from data.json
 };
+
+// Load data and update subjects
+fetch("data.json")
+  .then((response) => response.json())
+  .then((data) => {
+    subjectsData = data;
+    // Populate 2nd year subjects from data.json
+    if (data.home && data.home.second) {
+      // Debug log
+      console.log("Loading 2nd year subjects:", Object.keys(data.home.second));
+
+      // Get all subjects and preserve their exact names as in data.json
+      subjects[2] = Object.keys(data.home.second).sort((a, b) =>
+        a.localeCompare(b)
+      );
+
+      // Debug log
+      console.log("Loaded subjects:", subjects[2]);
+    }
+  })
+  .catch((error) => console.error("Error loading data:", error));
 
 const resources = {
   notes: [
@@ -193,13 +207,27 @@ function showSubjectsInternal(year) {
   const subjectGrid = document.getElementById("subjectGrid");
   subjectGrid.innerHTML = "";
 
+  // Debug log
+  console.log("Rendering subjects for year", year, ":", subjects[year]);
+
   subjects[year].forEach((subject, index) => {
     const card = document.createElement("div");
     card.className = "card subject-card";
-    card.onclick = () => showResources(year, subject);
+
+    // Store the exact subject name as a data attribute
+    card.setAttribute("data-subject", subject);
+
+    card.onclick = () => {
+      console.log("Clicked subject:", subject);
+      showResources(year, subject);
+    };
+
+    // Format the display name (can be customized if needed)
+    const displayName = subject;
+
     card.innerHTML = `
                 <i class="fas fa-book-reader"></i>
-                <h3>${subject}</h3>
+                <h3>${displayName}</h3>
                 <p>Click to view resources</p>
             `;
     subjectGrid.appendChild(card);
@@ -207,6 +235,11 @@ function showSubjectsInternal(year) {
 }
 
 function showResourcesInternal(year, subject) {
+  if (!subjectsData) {
+    console.error("Data not loaded yet");
+    return;
+  }
+
   currentYear = year;
   document.getElementById("homePage").style.display = "none";
   document.getElementById("subjectsPage").style.display = "none";
@@ -220,42 +253,151 @@ function showResourcesInternal(year, subject) {
   const resourceSection = document.getElementById("resourceSection");
   resourceSection.innerHTML = "";
 
-  const notesDiv = createResourceCategory(
-    "Notes",
-    "fa-sticky-note",
-    resources.notes
-  );
-  resourceSection.appendChild(notesDiv);
+  // Get the subject data based on year
+  const yearData =
+    year === 1 ? subjectsData.home.first : subjectsData.home.second;
 
-  const pyqsDiv = createResourceCategory(
-    "Previous Year Questions",
-    "fa-file-text",
-    resources.pyqs
-  );
-  resourceSection.appendChild(pyqsDiv);
+  // Debug log to check available subjects
+  console.log("Available subjects:", Object.keys(yearData));
+  console.log("Looking for subject:", subject);
 
-  const assignmentsDiv = createResourceCategory(
-    "Assignments",
-    "fa-tasks",
-    resources.assignments
-  );
-  resourceSection.appendChild(assignmentsDiv);
+  // For second year, try exact match first then try other cases
+  let subjectData = null;
+  if (year === 2) {
+    // First try direct match
+    subjectData = yearData[subject];
+    if (!subjectData) {
+      // If not found, try to find a case-insensitive match
+      const subjectKey = Object.keys(yearData).find(
+        (key) => key.toLowerCase() === subject.toLowerCase()
+      );
+      if (subjectKey) {
+        subjectData = yearData[subjectKey];
+      }
+    }
+  } else {
+    subjectData = yearData[subject.toLowerCase()];
+  }
+
+  if (!subjectData) {
+    resourceSection.innerHTML =
+      "<p>No resources available for this subject.</p>";
+    return;
+  }
+
+  // Add notes section if available
+  if (subjectData.notes) {
+    // Handle different note structures
+    if (typeof subjectData.notes === "object") {
+      // Check if it's a nested structure (like DS and DSTL)
+      const hasNestedStructure = Object.values(subjectData.notes).some(
+        (value) => typeof value === "object" && !Array.isArray(value)
+      );
+
+      if (hasNestedStructure) {
+        // Handle nested structure (e.g., different professors' notes)
+        Object.entries(subjectData.notes).forEach(([category, content]) => {
+          if (typeof content === "object" && !Array.isArray(content)) {
+            const notesItems = Object.entries(content).map(([name, link]) => ({
+              name,
+              link,
+            }));
+            if (notesItems.length > 0) {
+              const notesDiv = createResourceCategory(
+                `Notes - ${category}`,
+                "fa-sticky-note",
+                notesItems
+              );
+              resourceSection.appendChild(notesDiv);
+            }
+          }
+        });
+      } else {
+        // Handle flat structure
+        const notesItems = Object.entries(subjectData.notes).map(
+          ([name, link]) => ({
+            name,
+            link,
+          })
+        );
+        const notesDiv = createResourceCategory(
+          "Notes",
+          "fa-sticky-note",
+          notesItems
+        );
+        resourceSection.appendChild(notesDiv);
+      }
+    }
+  }
+
+  // Add assignments section if available
+  if (subjectData.assignments) {
+    const assignmentItems = Object.entries(subjectData.assignments).map(
+      ([name, link]) => ({
+        name,
+        link,
+      })
+    );
+    const assignmentsDiv = createResourceCategory(
+      "Assignments",
+      "fa-tasks",
+      assignmentItems
+    );
+    resourceSection.appendChild(assignmentsDiv);
+  }
+
+  // Add papers section if available
+  if (subjectData.paper || subjectData.papers) {
+    const paperData = subjectData.paper || subjectData.papers;
+    const paperItems = Object.entries(paperData).map(([name, link]) => ({
+      name,
+      link,
+    }));
+    const papersDiv = createResourceCategory(
+      "Previous Year Questions",
+      "fa-file-text",
+      paperItems
+    );
+    resourceSection.appendChild(papersDiv);
+  }
+
+  // Add YouTube videos section if available
+  if (subjectData["Youtube Video (Gateway Classes)"]) {
+    const videoData = subjectData["Youtube Video (Gateway Classes)"];
+    const videoItems = Object.entries(videoData)
+      .filter(([name, data]) => Array.isArray(data))
+      .map(([name, [link]]) => ({
+        name: `${name} - Video Lecture`,
+        link,
+      }));
+    if (videoItems.length > 0) {
+      const videosDiv = createResourceCategory(
+        "Video Lectures",
+        "fa-youtube",
+        videoItems
+      );
+      resourceSection.appendChild(videosDiv);
+    }
+  }
 }
 
-document.querySelector(".logo-section").addEventListener("click", function() {
+document.querySelector(".logo-section").addEventListener("click", function () {
   showHome();
   closeMenu(); // optional if you want to auto-close nav on mobile
 });
 
-
 // Public functions (with history push)
 function showHome() {
-  window.history.pushState({ page: 'home' }, '', '#home');
+  window.history.pushState({ page: "home" }, "", "#home");
   showHomeInternal();
 }
 
 function showSubjects(year) {
-  window.history.pushState({ page: 'subjects', year: year }, '', `#subjects-${year}`);
+  window.history.pushState(
+    { page: "subjects", year: year },
+    "",
+    `#subjects-${year}`
+  );
   showSubjectsInternal(year);
 }
 
@@ -264,7 +406,11 @@ function showSubjectsFromBread() {
 }
 
 function showResources(year, subject) {
-  window.history.pushState({ page: 'resources', year: year, subject: subject }, '', `#resources-${year}`);
+  window.history.pushState(
+    { page: "resources", year: year, subject: subject },
+    "",
+    `#resources-${year}`
+  );
   showResourcesInternal(year, subject);
 }
 
@@ -275,18 +421,24 @@ function createResourceCategory(title, icon, items) {
   let html = `<h3><i class="fas ${icon}"></i> ${title}</h3><div class="download-grid">`;
 
   items.forEach((item, index) => {
+    const isVideo = item.link.includes("youtu");
+    const itemIcon = isVideo ? "fa-youtube" : "fa-file-pdf";
+    const itemType = isVideo ? "Video" : "PDF Document";
+    const buttonText = isVideo ? "Watch" : "Download";
+    const buttonIcon = isVideo ? "fa-play" : "fa-download";
+
     html += `
                 <div class="download-item">
                     <div class="download-info">
-                        <i class="fas fa-file-pdf"></i>
+                        <i class="fas ${itemIcon}"></i>
                         <div>
                             <strong>${item.name}</strong>
-                            <div style="color: #666; font-size: 0.9em; margin-top: 5px;">PDF Document</div>
+                            <div style="color: #666; font-size: 0.9em; margin-top: 5px;">${itemType}</div>
                         </div>
                     </div>
                     <button class="download-btn" onclick="downloadFile('${item.link}')">
-                        <i class="fas fa-download"></i>
-                        Download
+                        <i class="fas ${buttonIcon}"></i>
+                        ${buttonText}
                     </button>
                 </div>
             `;
@@ -298,6 +450,8 @@ function createResourceCategory(title, icon, items) {
 }
 
 function downloadFile(fileUrl) {
+  // Remove any trailing spaces
+  fileUrl = fileUrl.trim();
   // Open the file link in a new tab
   window.open(fileUrl, "_blank");
 }
@@ -424,17 +578,17 @@ function showContactInternal() {
 }
 
 function showHowToDownload() {
-  window.history.pushState({ page: 'howto' }, '', '#howto');
+  window.history.pushState({ page: "howto" }, "", "#howto");
   showHowToDownloadInternal();
 }
 
 function showAbout() {
-  window.history.pushState({ page: 'about' }, '', '#about');
+  window.history.pushState({ page: "about" }, "", "#about");
   showAboutInternal();
 }
 
 function showContact() {
-  window.history.pushState({ page: 'contact' }, '', '#contact');
+  window.history.pushState({ page: "contact" }, "", "#contact");
   showContactInternal();
 }
 
