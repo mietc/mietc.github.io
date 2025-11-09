@@ -27,6 +27,11 @@ header {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #2a2a2b;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
 }
 
 .logo-section {
@@ -75,6 +80,7 @@ header {
   font-weight: 500;
   transition: color 0.3s;
   cursor: pointer;
+  display: inline-block;
 }
 
 .nav-link:hover {
@@ -145,6 +151,7 @@ footer {
   background: #1e1e1f;
   border-radius: 0;
   padding: 40px 50px;
+  padding-top: 110px;
   box-shadow: none;
   min-height: calc(100vh - 100px);
   color: white;
@@ -204,6 +211,21 @@ footer {
 .card p {
   opacity: 0.9;
   font-size: 0.9em;
+}
+
+.disabled-card {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #3a3a3b !important;
+}
+
+.disabled-card:hover {
+  transform: none !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.disabled-card i {
+  opacity: 0.7;
 }
 
 .subject-card {
@@ -327,6 +349,8 @@ footer {
     transition: left 0.3s;
     z-index: 1000;
     gap: 20px;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
   }
 
   .header-nav.active {
@@ -338,10 +362,14 @@ footer {
     padding: 10px 0;
     border-bottom: 1px solid #2a2a2b;
     width: 100%;
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
   }
 
   .content-area {
     padding: 20px;
+    padding-top: 90px;
   }
 
   .year-grid,
