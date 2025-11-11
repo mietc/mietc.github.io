@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIET - B.Tech Notes & PYQs</title>
+    <meta property="og:title" content="mietc" />
+    <meta property="og:description" content="All your needs in one website" />
+    <meta
+      property="og:image"
+      content="https://github.com/mietc/mietc.github.io/blob/main/miet.png"
+    />
+    <meta property="og:url" content="mietc.github.io" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="miet.png" />
+    <link rel="shortcut icon" href="miet.png" type="image/x-icon" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo-section">
+          <div class="logo-text">
+            <span style="color: white"
+              >m<span style="color: red">i</span>et</span
+            ><span style="color: white">c</span>
+          </div>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <nav class="header-nav" id="headerNav">
+          <a
+            href="#home"
+            class="nav-link"
+            onclick="showHome(); closeMenu(); return false;"
+            >Home</a
+          >
+          <a
+            href="#howto"
+            class="nav-link"
+            onclick="showHowToDownload(); closeMenu(); return false;"
+            >How to download?</a
+          >
+          <a
+            href="#about"
+            class="nav-link"
+            onclick="showAbout(); closeMenu(); return false;"
+            >About</a
+          >
+          <a
+            href="#contact"
+            class="nav-link"
+            onclick="showContact(); closeMenu(); return false;"
+            >Contact</a
+          >
+        </nav>
+      </header>
+
+      <div class="content-area" id="content">
+        <!-- Home Page -->
+        <div id="homePage">
+          <h2 class="page-title">
+            <i class="fas fa-book-open"></i>
+            Select Your Year
+          </h2>
+          <p class="page-subtitle">
+            Choose your academic year to access notes, PYQs, and assignments
+          </p>
+
+          <div class="year-grid">
+            <div class="card" onclick="showSubjects(1)">
+              <i class="fas fa-user-graduate"></i>
+              <h3>1st Year</h3>
+              <p>Foundation courses and basics</p>
+            </div>
+            <div class="card" onclick="showSubjects(2)">
+              <i class="fas fa-book-reader"></i>
+              <h3>2nd Year</h3>
+              <p>Core subjects and practicals</p>
+            </div>
+            <div class="card disabled-card">
+              <i class="fas fa-laptop-code"></i>
+              <h3>3rd Year</h3>
+              <p> Coming Soon - Not uploaded yet</p>
+            </div>
+            <div class="card disabled-card">
+              <i class="fas fa-project-diagram"></i>
+              <h3>4th Year</h3>
+              <p>Coming Soon - Not uploaded yet</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subjects Page -->
+        <div id="subjectsPage" style="display: none">
+          <div class="breadcrumb">
+            <span onclick="showHome()"><i class="fas fa-home"></i> Home</span>
+            <i class="fas fa-chevron-right"></i>
+            <span id="currentYear"></span>
+          </div>
+
+          <h2 class="page-title">
+            <i class="fas fa-book"></i>
+            <span id="yearTitle"></span>
+          </h2>
+          <p class="page-subtitle">
+            Select a subject to view available resources
+          </p>
+
+          <div class="subject-grid" id="subjectGrid"></div>
+        </div>
+
+        <!-- Resources Page -->
+        <div id="resourcesPage" style="display: none">
+          <div class="breadcrumb">
+            <span onclick="showHome()"><i class="fas fa-home"></i> Home</span>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadYear" onclick="showSubjectsFromBread()"></span>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadSubject"></span>
+          </div>
+
+          <h2 class="page-title">
+            <i class="fas fa-file-alt"></i>
+            <span id="subjectTitle"></span>
+          </h2>
+          <p class="page-subtitle">Download notes, PYQs, and assignments</p>
+
+          <div class="resource-section" id="resourceSection"></div>
+        </div>
+
+        <!-- How to Download Page -->
+        <div id="howtoPage" style="display: none">
+          <h2 class="page-title">
+            <i class="fas fa-question-circle"></i>
+            How to Download?
+          </h2>
+          <p class="page-subtitle">
+            Follow these simple steps to download your study materials
+          </p>
+          <div style="max-width: 800px; margin: 30px auto">
+            <div
+              style="
+                background: #2a2a2b;
+                padding: 30px;
+                border-radius: 15px;
+                margin-bottom: 20px;
+              "
+            >
+              <h3 style="color: #667eea; margin-bottom: 15px">
+                <i class="fas fa-1"></i> Select Your Year
+              </h3>
+              <p>
+                Click on your current academic year (1st, 2nd, 3rd, or 4th year)
+                from the home page.
+              </p>
+            </div>
+            <div
+              style="
+                background: #2a2a2b;
+                padding: 30px;
+                border-radius: 15px;
+                margin-bottom: 20px;
+              "
+            >
+              <h3 style="color: #667eea; margin-bottom: 15px">
+                <i class="fas fa-2"></i> Choose Subject
+              </h3>
+              <p>
+                Browse through the list of subjects and click on the one you
+                need materials for.
+              </p>
+            </div>
+            <div
+              style="
+                background: #2a2a2b;
+                padding: 30px;
+                border-radius: 15px;
+                margin-bottom: 20px;
+              "
+            >
+              <h3 style="color: #667eea; margin-bottom: 15px">
+                <i class="fas fa-3"></i> Download Resources
+              </h3>
+              <p>
+                Click the download button next to any notes, PYQs, or
+                assignments you need. Files will be downloaded to your device.
+              </p>
+            </div>
+          </div>
+          <button
+            class="download-btn"
+            onclick="showHome()"
+            style="margin: 20px auto; display: block"
+          >
+            <i class="fas fa-home"></i> Back to Home
+          </button>
+        </div>
+
+        <!-- About Page -->
+        <div id="aboutPage" style="display: none">
+          <h2 class="page-title">
+            <i class="fas fa-info-circle"></i>
+            About Us
+          </h2>
+          <p class="page-subtitle">
+            Your trusted source for B.Tech study materials
+          </p>
+          <div style="max-width: 900px; margin: 30px auto">
+            <div
+              style="
+                background: #2a2a2b;
+                padding: 40px;
+                border-radius: 15px;
+                line-height: 1.8;
+              "
+            >
+              <h3 style="color: #667eea; margin-bottom: 20px">
+                Welcome to Miet Notes and PYQ's!
+              </h3>
+              <p style="margin-bottom: 20px">
+                We are dedicated to helping B.Tech students access quality study
+                materials, previous year questions, and assignments for all four
+                years of their engineering journey.
+              </p>
+
+              <h3 style="color: #667eea; margin-bottom: 20px; margin-top: 30px">
+                Our Mission
+              </h3>
+              <p style="margin-bottom: 20px">
+                To provide comprehensive, organized, and easily accessible study
+                resources that help students excel in their academics and
+                prepare effectively for exams.
+              </p>
+
+              <h3 style="color: #667eea; margin-bottom: 20px; margin-top: 30px">
+                What We Offer
+              </h3>
+              <ul style="list-style: none; padding: 0">
+                <li style="padding: 10px 0">
+                  <i
+                    class="fas fa-check"
+                    style="color: #667eea; margin-right: 10px"
+                  ></i>
+                  Complete module-wise notes
+                </li>
+                <li style="padding: 10px 0">
+                  <i
+                    class="fas fa-check"
+                    style="color: #667eea; margin-right: 10px"
+                  ></i>
+                  Previous year question papers
+                </li>
+                <li style="padding: 10px 0">
+                  <i
+                    class="fas fa-check"
+                    style="color: #667eea; margin-right: 10px"
+                  ></i>
+                  Assignments and lab manuals
+                </li>
+                <li style="padding: 10px 0">
+                  <i
+                    class="fas fa-check"
+                    style="color: #667eea; margin-right: 10px"
+                  ></i>
+                  Organized by year and subject
+                </li>
+              </ul>
+            </div>
+          </div>
+          <button
+            class="download-btn"
+            onclick="showHome()"
+            style="margin: 20px auto; display: block"
+          >
+            <i class="fas fa-home"></i> Back to Home
+          </button>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contactPage" style="display: none">
+          <h2 class="page-title">
+            <i class="fas fa-envelope"></i>
+            Contact Us
+          </h2>
+          <p class="page-subtitle">
+            Get in touch with us for any queries or suggestions
+          </p>
+          <div style="max-width: 700px; margin: 30px auto">
+            <div
+              style="background: #2a2a2b; padding: 40px; border-radius: 15px"
+            >
+              <div style="text-align: center; margin-bottom: 30px">
+                <img
+                  src="miet.png"
+                  alt="MIET Logo"
+                  style="
+                    width: 64px;
+                    height: 64px;
+                    margin-bottom: 20px;
+                    border-radius: 50%;
+                  "
+                />
+                <h3 style="color: #667eea; margin-bottom: 10px">
+                  Miet Notes and PYQ's
+                </h3>
+              </div>
+
+              <div style="margin: 25px 0">
+                <h4 style="color: #667eea; margin-bottom: 10px">
+                  <i class="fas fa-envelope" style="margin-right: 10px"></i>
+                  Email
+                </h4>
+                <p>devgurjar997@gmail.com</p>
+              </div>
+
+              <div style="margin: 25px 0">
+                <h4 style="color: #667eea; margin-bottom: 10px">
+                  <i class="fas fa-phone" style="margin-right: 10px"></i> Phone
+                </h4>
+                <p>+91 8449933999</p>
+              </div>
+
+              <div style="margin: 25px 0">
+                <h4 style="color: #667eea; margin-bottom: 10px">
+                  <i class="fab fa-telegram" style="margin-right: 10px"></i>
+                  Telegram
+                </h4>
+                <p>@devchauhann</p>
+              </div>
+
+              <div style="margin: 25px 0">
+                <h4 style="color: #667eea; margin-bottom: 10px">
+                  <i class="fab fa-whatsapp" style="margin-right: 10px"></i>
+                  WhatsApp
+                </h4>
+                <p>Join our community group for updates</p>
+              </div>
+
+              <div
+                style="
+                  text-align: center;
+                  margin-top: 30px;
+                  padding-top: 30px;
+                  border-top: 1px solid #3a3a3b;
+                "
+              >
+                <p style="color: #b0b0b0">
+                  We typically respond within 24 hours
+                </p>
+              </div>
+            </div>
+          </div>
+          <button
+            class="download-btn"
+            onclick="showHome()"
+            style="margin: 20px auto; display: block"
+          >
+            <i class="fas fa-home"></i> Back to Home
+          </button>
+        </div>
+      </div>
+
+      <footer>
+        <div class="social-links">
+          <a
+            href="https://instagram.com/devchauhann03"
+            target="_blank"
+            class="social-icon"
+            title="Instagram"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a
+            href="https://github.com/devchauhann"
+            target="_blank"
+            class="social-icon"
+            title="GitHub"
+          >
+            <i class="fab fa-github"></i>
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            class="social-icon"
+            title="LinkedIn"
+          >
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </div>
+        <div class="copyright">© 2025 MIET</div>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
