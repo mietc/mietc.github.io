@@ -30,10 +30,34 @@
             ><span style="color: white">c</span>
           </div>
         </div>
-        <div class="hamburger" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
+        <div class="mobile-controls">
+          <div class="mobile-search-icon" onclick="openSearchModal()">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="8"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="m21 21-4.35-4.35"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
         <nav class="header-nav" id="headerNav">
           <a
@@ -61,6 +85,238 @@
             >Contact</a
           >
         </nav>
+
+        <!-- Mobile Menu -->
+        <div
+          class="mobile-menu-overlay"
+          id="mobileMenuOverlay"
+          onclick="closeMenu()"
+        ></div>
+        <div class="mobile-menu" id="mobileMenu">
+          <div class="mobile-menu-header">
+            <h3>Menu</h3>
+            <button class="close-menu" onclick="closeMenu()">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M18 6L6 18M6 6l12 12"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="mobile-menu-content">
+            <div
+              class="mobile-menu-item"
+              onclick="openSearchModal(); closeMenu();"
+            >
+              <div class="mobile-menu-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="m21 21-4.35-4.35"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                </svg>
+              </div>
+              <span>Search</span>
+            </div>
+
+            <div class="mobile-menu-item" onclick="toggleTheme(); closeMenu();">
+              <div class="mobile-menu-icon">
+                <svg
+                  id="themeIcon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                </svg>
+              </div>
+              <span>Theme</span>
+            </div>
+
+            <div class="mobile-menu-divider"></div>
+
+            <div class="mobile-menu-item" onclick="showHome(); closeMenu();">
+              <div class="mobile-menu-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <polyline
+                    points="9,22 9,12 15,12 15,22"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                </svg>
+              </div>
+              <span>Home</span>
+            </div>
+
+            <div
+              class="mobile-menu-item"
+              onclick="showHowToDownload(); closeMenu();"
+            >
+              <div class="mobile-menu-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <polyline
+                    points="7,10 12,15 17,10"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <line
+                    x1="12"
+                    y1="15"
+                    x2="12"
+                    y2="3"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                </svg>
+              </div>
+              <span>How to Download</span>
+            </div>
+
+            <div class="mobile-menu-item" onclick="showAbout(); closeMenu();">
+              <div class="mobile-menu-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <line
+                    x1="12"
+                    y1="16"
+                    x2="12"
+                    y2="12"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <line
+                    x1="12"
+                    y1="8"
+                    x2="12.01"
+                    y2="8"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                </svg>
+              </div>
+              <span>About</span>
+            </div>
+
+            <div class="mobile-menu-item" onclick="showContact(); closeMenu();">
+              <div class="mobile-menu-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <polyline
+                    points="22,6 12,13 2,6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                </svg>
+              </div>
+              <span>Contact</span>
+            </div>
+          </div>
+
+          <div class="mobile-menu-footer">
+            <div class="mobile-menu-creator">
+              <span>Created by </span>
+              <a
+                href="https://github.com/devchauhann"
+                target="_blank"
+                class="creator-link"
+              >
+                <span class="creator-name">devchauhan</span>
+                <svg
+                  class="github-icon"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
       </header>
 
       <div class="content-area" id="content">
@@ -88,7 +344,7 @@
             <div class="card disabled-card">
               <i class="fas fa-laptop-code"></i>
               <h3>3rd Year</h3>
-              <p> Coming Soon - Not uploaded yet</p>
+              <p>Coming Soon - Not uploaded yet</p>
             </div>
             <div class="card disabled-card">
               <i class="fas fa-project-diagram"></i>
@@ -365,6 +621,85 @@
           >
             <i class="fas fa-home"></i> Back to Home
           </button>
+        </div>
+      </div>
+
+      <!-- Search Modal -->
+      <div class="search-modal" id="searchModal">
+        <div class="search-modal-content">
+          <div class="search-modal-header">
+            <h3>Search</h3>
+            <button class="close-search" onclick="closeSearchModal()">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M18 6L6 18M6 6l12 12"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="search-input-container">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search for subjects, notes, or resources..."
+              onkeyup="performSearch()"
+            />
+            <div class="search-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <path
+                  d="m21 21-4.35-4.35"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="search-results" id="searchResults">
+            <div class="search-placeholder">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <path
+                  d="m21 21-4.35-4.35"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+              <p>Start typing to search for subjects and resources</p>
+            </div>
+          </div>
         </div>
       </div>
 
