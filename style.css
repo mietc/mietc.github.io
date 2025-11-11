@@ -203,6 +203,14 @@ footer {
   margin-bottom: 15px;
 }
 
+/* SVG icon used for Codetantra cards */
+.card .card-icon {
+  width: 3em;
+  height: 3em;
+  margin-bottom: 15px;
+  color: white;
+}
+
 .card h3 {
   font-size: 1.5em;
   margin-bottom: 10px;
