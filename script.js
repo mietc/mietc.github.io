@@ -231,11 +231,28 @@ function showSubjectsInternal(year) {
     // Format the display name (can be customized if needed)
     const displayName = subject;
 
-    card.innerHTML = `
+    // Use a computer SVG for Codetantra / Codentantra subjects (case-insensitive)
+    const lower = subject.toLowerCase();
+    const isCodetantra =
+      lower.includes("codetantra") || lower.includes("codentantra");
+
+    if (isCodetantra) {
+      card.innerHTML = `
+                <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <path d="M8 21h8"></path>
+                  <path d="M12 17v4"></path>
+                </svg>
+                <h3>${displayName}</h3>
+                <p>Click to view resources</p>
+            `;
+    } else {
+      card.innerHTML = `
                 <i class="fas fa-book-reader"></i>
                 <h3>${displayName}</h3>
                 <p>Click to view resources</p>
             `;
+    }
     subjectGrid.appendChild(card);
   });
 }
@@ -291,6 +308,31 @@ function showResourcesInternal(year, subject) {
   if (!subjectData) {
     resourceSection.innerHTML =
       "<p>No resources available for this subject.</p>";
+    return;
+  }
+
+  // Special handling for Codetantra structure
+  if (
+    subject.toLowerCase().includes("codetantra") ||
+    subject.toLowerCase().includes("codentantra")
+  ) {
+    // Handle Codetantra's unique structure
+    Object.entries(subjectData).forEach(([category, content]) => {
+      if (typeof content === "object" && !Array.isArray(content)) {
+        const codeItems = Object.entries(content).map(([name, link]) => ({
+          name,
+          link,
+        }));
+        if (codeItems.length > 0) {
+          const categoryDiv = createResourceCategory(
+            category,
+            "fa-code",
+            codeItems
+          );
+          resourceSection.appendChild(categoryDiv);
+        }
+      }
+    });
     return;
   }
 
