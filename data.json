@@ -318,7 +318,11 @@
             "UNIT 3": "https://drive.google.com/file/d/12DzA2Ly9z2-nqbGc-C9POY_akWKE56Jt ",
             "UNIT 4": "https://drive.google.com/file/d/11Jx66fkRlvYQwOFcAUmaMSAURAZ35PbM ",
             "UNIT 5": "https://drive.google.com/file/d/11QwdTxBynwELgiZogQkpTcdcWsq70ZZp "
+          },
+          "paper": {
+            "2024-25": "https://drive.google.com/file/d/1BgsY9F0448bBMKTEGCMdGy7YqlHbKKpa/view "
           }
+            
         },
         "book": {
           "QUANTUM": "https://drive.google.com/file/d/13F3Bx95z6rfrCjeQffTeC3aK6qDBS0Mt "
@@ -344,13 +348,7 @@
           "UNIT 5": "https://drive.google.com/file/d/14q4daVBdpWRqWL-_WMAICfFZnALFmy_u ",
           "Virtual Machine": "https://drive.google.com/file/d/14gh1_Mlw5RWDkqxulQevorWQcPBzduzz "
         },
-        "Youtube Video (Gateway Classes)": {
-          "UNIT 1": ["https://youtu.be/tJX92DuL7Mc?si=dxEpBtf_WV1eRq1b", "Watch"],
-          "UNIT 2": ["https://youtu.be/SY-DaAZbiHA?si=VOJMC9LwJbv_fudC", "Watch"],
-          "UNIT 3": ["https://youtu.be/2KHc3Au_uJY?si=qk2O01jZuoBAO7zD", "Watch"],
-          "UNIT 4": ["https://youtu.be/MZADC3EV5Ak?si=InEngweWH51v83kK", "Watch"],
-          "UNIT 5": ["https://youtu.be/n23tfBJidX4?si=Fbbh8g4efLoguHCO", "Watch"]
-        },
+        
         "papers": {
           "AKTU 2023-24": "https://www.abesit.in/wp-content/uploads/2024/07/BCC301-CYBER-SECURITY.pdf ",
           "AKTU 2022-23": "https://www.abesit.in/wp-content/uploads/2023/07/COMPUTER-SYSTEM-SECURITY-KNC-301.pdf ",
@@ -426,6 +424,7 @@
           "AKTU 2021-22": "https://www.abesit.in/wp-content/uploads/2023/03/DISCRETE-STRUCTURES-THEORY-OF-LOGIC-KCS-303-1.pdf ",
           "ST-1": "https://drive.google.com/file/d/19fBqW9FkU7_FfCh7OmPTv0egZ0W53SvD ",
           "ST-2": "https://drive.google.com/file/d/19d49oVE-NszDLK5YndW1aQh5Qii5vPoN ",
+          "ST-2 2024-25": "https://drive.google.com/file/d/1I8x9CcMJiKNEFe5IABCD96buLagM4LV2/view?usp=sharing ",
           "PUT 2023-24": "https://drive.google.com/file/d/18jsr-BPaxZsf_8rXOfexrGQ_MHCPUid3 ",
           "PUT 2022-23": "https://drive.google.com/file/d/18hBGRs4lNeAsN1VAstHfBTdx01EAYM9r "
         }
@@ -444,6 +443,9 @@
           "UNIT 3": "https://drive.google.com/file/d/1BLCTj2fTi_qUQs-FmFjBL7lUQK9S6HiX ",
           "UNIT 4": "https://drive.google.com/file/d/1G1RwF1Im9fSwA97dDOajZsbEPrCA0Pk_ ",
           "UNIT 5": "https://drive.google.com/file/d/1sEFQHaX6GeZ2XthXc-VWuEeiXS6Xp_vI "
+        },
+        "paper": {
+          "ST-2 2024-25": "https://drive.google.com/file/d/1JK0-TcGhL_NnWhwOi-J1Zyt2cR0y7pv3/view?usp=sharing ",
         }
       },
       "MATHS 4": {
